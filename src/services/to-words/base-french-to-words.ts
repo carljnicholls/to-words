@@ -7,4 +7,9 @@ export abstract class BaseFrenchToWords {
     protected isWholeNumber(val: number) {
         return val % 1 === 0;
     }
+
+    protected getNthFromTheRightNumber(val: number, n: number) {
+        const str = val.toString();
+        return Number(str[str.length - n]);
+    }
 }

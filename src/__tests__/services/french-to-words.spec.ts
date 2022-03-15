@@ -123,6 +123,38 @@ describe('french to words', () => {
             args: 333,
             expected: 'trois-cent-trente-trois'
         },
+        {
+            args: 801,
+            expected: 'huit-cent-et un'
+        },
+        {
+            args: 1000,
+            expected: 'mille'
+        },
+        {
+            args: 1333,
+            expected: 'mille-trois-cent-trente-trois'
+        },
+        {
+            args: 3333,
+            expected: 'trois-mille-trois-cent-trente-trois'
+        },
+        {
+            args: 8001,
+            expected: 'huit-mille-et un'
+        },
+        {
+            args: 82223,
+            expected: 'quatre-vingt-deux-mille-deux-cent-vingt-trois'
+        },
+        {
+            args: 311253,
+            expected: 'trois-cent-onze-mille-deux-cent-cinquante-trois'
+        },
+        {
+            args: 555555,
+            expected: 'cinq-cent-cinquante-cinq-mille-cinq-cent-cinquante-cinq'
+        },
     ];
 
     beforeEach(() => {
@@ -130,7 +162,16 @@ describe('french to words', () => {
     });
 
     describe('convert()', () => {
-
+        let all: number[] = [];
+        beforeAll(() => {
+            let i = 0;
+            let arr = [];
+            while (i < 999999) {
+                arr.push(i);
+                i++;
+            }
+        })
+        
         test.each
         (
             testCases            
@@ -140,9 +181,91 @@ describe('french to words', () => {
                 .toBe(test.expected);
         });
 
-        test('It will return the expected value for input 18', async() => {
-            expect(service.convert(18))
-                .toBe('dix-huit');
+        test('It will return the expected value for input 801', async() => {
+            const test = {
+                args: 801,
+                expected: 'huit-cent-et un'
+            };
+            expect(service.convert(test.args))
+                .toBe(test.expected);
+        });
+        
+        test('It will return the expected value for input 1000', async() => {
+            expect(service.convert(1000))
+                .toBe('mille');
+        });
+
+        test('It will return the expected value for input 1001', async() => {
+            expect(service.convert(1001))
+                .toBe('mille-et un');
+        });
+
+        test('It will return the expected value for input 1333', async() => {
+            expect(service.convert(1333))
+                .toBe('mille-trois-cent-trente-trois');
+        });
+
+        test('It will return the expected value for input 3333', async() => {
+            expect(service.convert(3333))
+                .toBe('trois-mille-trois-cent-trente-trois');
+        });
+        test('It will return the expected value for input 8001', async() => {
+            expect(service.convert(8001))
+                .toBe('huit-mille-et un');
+        });
+        
+        test('It will return the expected value for input 82223', async() => {
+            expect(service.convert(82223))
+                .toBe('quatre-vingt-deux-mille-deux-cent-vingt-trois');
+        });
+        
+
+        test('It will return the expected value for input 311253', async() => {
+            expect(service.convert(311253))
+                .toBe('trois-cent-onze-mille-deux-cent-cinquante-trois');
+        });
+        
+        
+
+
+        /** 
+         * disabled as its long running 
+         * re-add as app test
+         * */
+        xtest('getWords(0 to 99999) will not return undefined in words', async () => {
+            let i = 0;
+            let arr = [];
+            while (i < 999999) {
+                arr.push(i);
+                i++;
+            }
+            expect.assertions(arr.length * 3);
+
+            for await (const iterator of arr) {
+                var result = service.convert(iterator)
+                
+                expect(result)
+                    .not
+                    .toBeNull();
+
+                expect(result.length)
+                    .toBeGreaterThan(1);
+
+                expect(result)
+                    .not
+                    .toContain('undefined')
+            }
+        });
+    }); 
+    describe('convertAll()', () => {
+
+        test.each
+        (
+            testCases            
+        )
+        ('It will return the expected value for input %p', async(test: TestCaseDto) => {
+            expect(service.convertAll([test.args]))
+                .toEqual([ test.expected ]);
         });
     }); 
 });
