@@ -1,7 +1,7 @@
 import { IArgsParser } from "./interfaces/i-args-parser";
 import { IResultSerializer } from "./interfaces/i-result-serializer";
 import { IToWords } from "./interfaces/i-to-words";
-import { ToWordsProvider } from "./services/to-words-provider";
+import { ToWordsProvider } from "./services/factories/to-words-provider";
 
 export class App {
     private toWords: IToWords; 

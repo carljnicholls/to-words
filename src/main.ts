@@ -1,7 +1,7 @@
 import { App } from "./app";
 import { CsvArgsParser } from "./services/args-parsers/csv-args-parser";
 import { ConsoleSerializer } from "./services/results-serializer/console-serializer";
-import { ToWordsProvider } from "./services/to-words-provider";
+import { ToWordsProvider } from "./services/factories/to-words-provider";
 import { BelgiumFrenchToWords } from "./services/to-words/belgium-french-to-words";
 import { FrenchToWords } from "./services/to-words/french-to-words";
 
