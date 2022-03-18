@@ -126,7 +126,7 @@ export class FrenchToWords extends BaseFrenchToWords implements IToWords {
 
     convert(value: number): string {
         // validate
-        if(!super.isWholeNumber(value)) throw Error('Decimals are not handled');
+        this.checkParamIsValid(value);
         
         const absoluteVal = Number(Math.trunc(value));
 
@@ -145,10 +145,10 @@ export class FrenchToWords extends BaseFrenchToWords implements IToWords {
         throw new Error("Not Implemented");
     }
 
-    convertAll(value: number[]): string[] {
+    convertAll(values: number[]): string[] {
         let result: string[] = [];
 
-        value.forEach(val => {
+        values.forEach(val => {
             result.push(this.convert(val));
         });
 

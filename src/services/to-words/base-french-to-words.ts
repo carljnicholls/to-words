@@ -12,4 +12,9 @@ export abstract class BaseFrenchToWords {
         const str = val.toString();
         return Number(str[str.length - n]);
     }
+
+    protected checkParamIsValid(value: number) {
+        if (!this.isWholeNumber(value))
+            throw Error('Decimals are not handled');
+    }
 }
